@@ -5,6 +5,7 @@ package client
 
 import (
 	"fmt"
+	"time"
 
 	"golang.org/x/net/context"
 
@@ -46,7 +47,21 @@ func (c *CmdSimpleFSGetStatus) Run() error {
 	}
 
 	ui := c.G().UI.GetTerminalUI()
-	ui.Printf("progress: %d\n", progress)
+	ui.Printf("Op type: %s\n", progress.OpType)
+
+	// TODO: humanize the larger numbers into KB, MB, GB, etc.
+	switch progress.OpType {
+	case keybase1.AsyncOps_LIST, keybase1.AsyncOps_LIST_RECURSIVE:
+		ui.Printf("Progress: %d/%d files (%.2f%%)\n", progress.FilesRead,
+			progress.FilesTotal,
+			float64(progress.FilesRead)/float64(progress.FilesTotal))
+	case keybase1.AsyncOps_READ:
+		ui.Printf("Progress: %d/%d bytes (%.2f%%)\n", progress.BytesRead,
+			progress.BytesTotal,
+			float64(progress.BytesRead)/float64(progress.BytesTotal))
+	}
+	timeRemaining := time.Until(keybase1.FromTime(progress.EndEstimate))
+	ui.Printf("Estimated time remaining: %s\n", timeRemaining)
 
 	return err
 }

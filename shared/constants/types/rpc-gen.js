@@ -2827,6 +2827,8 @@ export type OpDescription = {asyncOp: 0, list: ?ListArgs} | {asyncOp: 1, listRec
 
 export type OpID = any
 
+export type OpProgress = $ReadOnly<{start: Time, endEstimate: Time, opType: AsyncOps, bytesTotal: Int, bytesRead: Int, bytesWritten: Int, filesTotal: Int, filesRead: Int, filesWritten: Int}>
+
 export type OpenFlags =
   | 0 // READ_0
   | 1 // REPLACE_1
@@ -4084,7 +4086,7 @@ type SignupGetInvitationCodeResult = String
 type SignupSignupResult = SignupRes
 type SigsSigListJSONResult = String
 type SigsSigListResult = ?Array<Sig>
-type SimpleFSSimpleFSCheckResult = Progress
+type SimpleFSSimpleFSCheckResult = OpProgress
 type SimpleFSSimpleFSGetOpsResult = ?Array<OpDescription>
 type SimpleFSSimpleFSMakeOpidResult = OpID
 type SimpleFSSimpleFSReadListResult = SimpleFSListResult

@@ -306,6 +306,48 @@
           "body": "RemoveArgs"
         }
       ]
+    },
+    {
+      "type": "record",
+      "name": "OpProgress",
+      "fields": [
+        {
+          "type": "Time",
+          "name": "start"
+        },
+        {
+          "type": "Time",
+          "name": "endEstimate"
+        },
+        {
+          "type": "AsyncOps",
+          "name": "opType"
+        },
+        {
+          "type": "int",
+          "name": "bytesTotal"
+        },
+        {
+          "type": "int",
+          "name": "bytesRead"
+        },
+        {
+          "type": "int",
+          "name": "bytesWritten"
+        },
+        {
+          "type": "int",
+          "name": "filesTotal"
+        },
+        {
+          "type": "int",
+          "name": "filesRead"
+        },
+        {
+          "type": "int",
+          "name": "filesWritten"
+        }
+      ]
     }
   ],
   "messages": {
@@ -539,7 +581,7 @@
           "type": "OpID"
         }
       ],
-      "response": "Progress",
+      "response": "OpProgress",
       "doc": "Check progress of pending operation"
     },
     "simpleFSGetOps": {
